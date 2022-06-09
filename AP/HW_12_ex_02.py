@@ -59,7 +59,7 @@ def main():
         "favorite": False,
     }
 
-    filename = 'files/hw_12_02.bin'
+    filename = 'files/hw_12_02.json'
     write_contacts_to_file(filename, asd)
     print(read_contacts_from_file(filename))
 
