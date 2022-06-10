@@ -6,9 +6,6 @@
 import copy
 import pickle
 
-import copy
-import pickle
-
 
 class Person:
     def __init__(self, name: str, email: str, phone: str, favorite: bool):
@@ -19,10 +16,10 @@ class Person:
 
     def __copy__(self):
         copy_o = Person(self.name, self.email, self.phone, self.favorite)
-        copy_o.name = self.name
-        copy_o.email = self.email
-        copy_o.phone = self.phone
-        copy_o.favorite = self.favorite
+        copy_o.name = copy.copy(self.name)
+        copy_o.email = copy.copy(self.email)
+        copy_o.phone = copy.copy(self.phone)
+        copy_o.favorite = copy.copy(self.favorite)
         return copy_o
 
 
@@ -54,10 +51,16 @@ class Contacts:
         self.is_unpacking = True
 
     def __copy__(self):
-        pass
+        copy_obj = Contacts(self.filename)
+        return copy_obj
 
     def __deepcopy__(self, memo):
-        pass
+        copy_obj = Contacts(self.filename)
+        memo[id(copy_obj)] = copy_obj
+        copy_obj.filename = copy.deepcopy(self.filename)
+        copy_obj.contacts = copy.deepcopy(self.contacts)
+        copy_obj.is_unpacking = copy.deepcopy(self.is_unpacking)
+        return copy_obj
 
 
 def main():
