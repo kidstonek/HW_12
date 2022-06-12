@@ -56,7 +56,7 @@ class Contacts:
 
     def __deepcopy__(self, memo):
         copy_obj = Contacts(self.filename)
-        memo[id(copy_obj)] = copy_obj
+        memo[id(self)] = copy_obj
         copy_obj.filename = copy.deepcopy(self.filename)
         copy_obj.contacts = copy.deepcopy(self.contacts)
         copy_obj.is_unpacking = copy.deepcopy(self.is_unpacking)
