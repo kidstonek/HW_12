@@ -81,7 +81,7 @@ class Record:
             self.phones.append(phone)
         self.b_date = b_date
 
-    def add_number_to_record(self, phone: Phone):  # это излишнее наименование)
+    def add_number_to_record(self, phone: Phone):
         self.phones.append(phone)
 
     def del_number_from_record(self, phone: Phone):
@@ -276,42 +276,12 @@ def main():
     with shelve.open(db_file) as states:
         for key in states.values():
             phone_book = key
-    # phone_book = AddressBook()
-    # name1 = Name('Alberto')
-    # name2 = Name('Dell')
-    # name3 = Name('Rio')
-    # name4 = Name('Antony')
-    # phone1 = Phone('3232323')
-    # phone2 = Phone('6666664')
-    # phone3 = Phone('23432423')
-    # phone4 = Phone('23123123')
-    # bdate1 = Birthday('1990-05-18')
-    # bdate2 = Birthday('1980-07-09')
-    #
-    # r = Record(name1, phone1, bdate1)  # если хотите реализовать множественную передачу одинаковых данных, возьмите их в кортеж) но сейчас лучше по одному
-    # r.add_number_to_record(phone3)
-    # r2 = Record(name2, phone2)
-    # r3 = Record(name3, phone3, bdate2)
-    # r4 = Record(name4, phone4)
-    # r3.add_number_to_record(phone2)
-    #
-    # phone_book.add_to_addressbook(r)  # в объектах Record уже есть имя, потому это лишняя передача.
-    # phone_book.add_to_addressbook(r2)
-    # phone_book.add_to_addressbook(r3)
-    # phone_book.add_to_addressbook(r4)
-
-
     while True:
         tmp = input('Please input command: ')
         result, data = parse_command(tmp)
         print(result(phone_book, *data))
         if result is ex:
             break
-    # r3.add_number_to_record(phone2)
-    #
-    # with shelve.open(db_file) as states:
-    #     for key in states.values():
-    #         print(key)
 
 
 if '__main__' == __name__:
