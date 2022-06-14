@@ -263,6 +263,7 @@ def helps(*args):
           'NameOfExistingContact Phone \\+ Phone....')
     print('"erase" - to erase existing phone for the contact \\ example: erase NameOfExistingContact '
           'Phone \\+ Phone....')
+    print('"abd" to add a birthday for the contact \\ example: abd NameForContact 1984-14-12')
     print('"birthday", "bdate", "bd" - to check how many days till next birthday for the contact '
           '\\ example: ch NameOfExistingContact')
     print('"ff" - to find something in the phonebook \\ example: ff YourText')
