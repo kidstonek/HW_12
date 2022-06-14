@@ -95,6 +95,10 @@ class Record:
             if i.phone_list == phone.phone_list:
                 self.phones[self.phones.index(i)] = phone_new
 
+    def add_b_day(self, b_date: Birthday):
+        self.b_date = b_date
+        return f'Birthdate for {self.name.value} was set to {self.b_date}'
+
     def days_to_birthday(self):
         if self.b_date:
             b_d = self.b_date.b_date
@@ -132,8 +136,6 @@ class AddressBook(UserDict):
                 number_of_iterations += int(args[1])
                 if number_of_iterations > len(b):
                     number_of_iterations = len(b)
-
-
 
 
 def ex(*args):
@@ -237,6 +239,13 @@ def find_all_staff(addressbook: AddressBook, *args):
     return '--------------------'
 
 
+def add_b_day(addressbook: AddressBook, *args):
+    for k, v in addressbook.data.items():
+        if k == args[0]:
+            b_day_to_set = Birthday(args[1])
+            return Record.add_b_day(v, b_day_to_set)
+
+
 def show_db(addressbook, *args):
     with shelve.open(db_file) as states:
         for key in states.values():
@@ -264,7 +273,7 @@ def helps(*args):
 COMMANDS = {ex: ["exit", ".", "bye"], show_addressbook: ["show", "s"], add_to_addressbook: ["add"],
             find_contact: ["find"], add_phone_to_contact: ["ap"], erase_phone: ["erase"],
             change_phone: ["change", "ch"], check_contact_b_day: ["birthday", "bdate", "bd"], helps: ["help", "h"],
-            show_db: ["asd"], find_all_staff: ["ff"]}
+            show_db: ["asd"], find_all_staff: ["ff"], add_b_day: ["abd"]}
 
 
 @input_error
@@ -283,6 +292,7 @@ def db_checker():
                 phone_book = key
         return phone_book
     else:
+        print('Blank PhoneBook was created')
         phone_book = AddressBook()
         return phone_book
 
@@ -302,5 +312,4 @@ def main():
 
 if '__main__' == __name__:
     db_file = os.getcwd() + "\\db\\db"
-    # db_file = 'db\db'
     main()
