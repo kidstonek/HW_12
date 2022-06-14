@@ -1,3 +1,4 @@
+import os
 import pathlib
 import shelve
 from collections import UserDict
@@ -131,6 +132,8 @@ class AddressBook(UserDict):
                 number_of_iterations += int(args[1])
                 if number_of_iterations > len(b):
                     number_of_iterations = len(b)
+
+
 
 
 def ex(*args):
@@ -272,12 +275,23 @@ def parse_command(user_input: str):
                 return k, user_input[len(i):].strip().split(" ")
 
 
+def db_checker():
+    if os.path.exists(db_file + '.dat'):
+        print('contact book exist\n')
+        with shelve.open(db_file) as states:
+            for key in states.values():
+                phone_book = key
+        return phone_book
+    else:
+        phone_book = AddressBook()
+        return phone_book
+
+
 def main():
     print('Welcome to the worst PhoneBook EVER')
     print('type "help" or "h" to receive a help')
-    with shelve.open(db_file) as states:
-        for key in states.values():
-            phone_book = key
+    phone_book = db_checker()
+    print(phone_book)
     while True:
         tmp = input('Please input command: ')
         result, data = parse_command(tmp)
@@ -287,5 +301,6 @@ def main():
 
 
 if '__main__' == __name__:
-    db_file = 'db\db'
+    db_file = os.getcwd() + "\\db\\db"
+    # db_file = 'db\db'
     main()
