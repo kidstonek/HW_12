@@ -302,7 +302,6 @@ def main():
     print('Welcome to the worst PhoneBook EVER')
     print('type "help" or "h" to receive a help')
     phone_book = db_checker()
-    print(phone_book)
     while True:
         tmp = input('Please input command: ')
         result, data = parse_command(tmp)
