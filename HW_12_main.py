@@ -225,11 +225,18 @@ def save_phonebook(addressbook: AddressBook):
     print('changes to PhoneBook are saved')
 
 
-def save_pb_pickle(addressbook: AddressBook):
+def save_pb_pickle(addressbook: AddressBook, *args):
+    db_file = "D:\\Code\\PY\\goit-python\\HW_12\\db\\pickle\\m_base.bin"
     with open(db_file, 'wb') as db:
         pickle.dump(addressbook, db)
-    print('changes to PhoneBook are saved')
+    return 'changes to PhoneBook are saved'
 
+
+def read_from_pickle_book(addressbook: AddressBook, *args):
+    db_file = "D:\\Code\\PY\\goit-python\\HW_12\\db\\pickle\\m_base.bin"
+    with open(db_file, 'rb') as dbs:
+        open_book = pickle.load(dbs)
+    return open_book
 
 def find_all_staff(addressbook: AddressBook, *args):
     contact_found = False
@@ -283,7 +290,8 @@ def helps(*args):
 COMMANDS = {ex: ["exit", ".", "bye"], show_addressbook: ["show", "s"], add_to_addressbook: ["add"],
             find_contact: ["find"], add_phone_to_contact: ["ap"], erase_phone: ["erase"],
             change_phone: ["change", "ch"], check_contact_b_day: ["birthday", "bdate", "bd"], helps: ["help", "h"],
-            show_db: ["asd"], find_all_staff: ["ff"], add_b_day: ["abd"]}
+            show_db: ["asd"], find_all_staff: ["ff"], add_b_day: ["abd"], save_pb_pickle: ["www"],
+            read_from_pickle_book: ["xc"]}
 
 
 @input_error
@@ -308,10 +316,11 @@ def db_checker():
         return []
 
 
-# def db_checker_pickle(): шото не работает
-#     if os.path.exists(db_file):
-#         with open(db_file, 'rb') as dbs:
-#             phone_book = pickle.load(dbs)
+def db_checker_pickle(): #шото не работает
+    db_file = "D:\\Code\\PY\\goit-python\\HW_12\\db\\pickle\\m_base.bin"
+    with open(db_file, 'rb') as dbs:
+        open_book = pickle.load(dbs)
+    return open_book
 #             print(type(phone_book))
 #         return phone_book
 #     else:
@@ -324,6 +333,7 @@ def main():
     print('Welcome to the worst PhoneBook EVER')
     print('type "help" or "h" to receive a help')
     phone_book = db_checker()
+    # phone_book = db_checker_pickle()
     while True:
         tmp = input('Please input command: ')
         result, data = parse_command(tmp)
