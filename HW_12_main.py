@@ -1,5 +1,6 @@
 import os
 import pathlib
+import pickle
 import shelve
 from collections import UserDict
 from datetime import date, datetime
@@ -140,6 +141,7 @@ class AddressBook(UserDict):
 
 def ex(*args):
     save_phonebook(args[0])
+    # save_pb_pickle(args[0])
     return "Good bye!"
 
 
@@ -155,6 +157,7 @@ def add_to_addressbook(addressbook: AddressBook, *args):
     return f'Contact {tmp_rec.name.value} with phones {tmp_phone1} added successfully'
 
 
+@input_error
 def show_addressbook(addressbook: AddressBook, *args):
     if args[0] == '':
         for k, v in addressbook.data.items():
@@ -222,6 +225,12 @@ def save_phonebook(addressbook: AddressBook):
     print('changes to PhoneBook are saved')
 
 
+def save_pb_pickle(addressbook: AddressBook):
+    with open(db_file, 'wb') as db:
+        pickle.dump(addressbook, db)
+    print('changes to PhoneBook are saved')
+
+
 def find_all_staff(addressbook: AddressBook, *args):
     contact_found = False
     print('--------------------')
@@ -283,6 +292,7 @@ def parse_command(user_input: str):
         for i in v:
             if user_input.lower().startswith(i.lower()):
                 return k, user_input[len(i):].strip().split(" ")
+    return helps, ['']
 
 
 def db_checker():
@@ -295,7 +305,19 @@ def db_checker():
     else:
         print('Blank PhoneBook was created')
         phone_book = AddressBook()
-        return phone_book
+        return []
+
+
+# def db_checker_pickle(): шото не работает
+#     if os.path.exists(db_file):
+#         with open(db_file, 'rb') as dbs:
+#             phone_book = pickle.load(dbs)
+#             print(type(phone_book))
+#         return phone_book
+#     else:
+#         print('Blank PhoneBook was created')
+#         phone_book = AddressBook()
+#         return phone_book
 
 
 def main():
