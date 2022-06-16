@@ -316,7 +316,7 @@ def db_checker():
         return []
 
 
-def db_checker_pickle(): #шото не работает
+def db_checker_pickle():
     db_file = "D:\\Code\\PY\\goit-python\\HW_12\\db\\pickle\\m_base.bin"
     with open(db_file, 'rb') as dbs:
         open_book = pickle.load(dbs)
